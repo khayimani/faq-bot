@@ -13,7 +13,10 @@ export default function Home() {
 
   // Detect system dark mode preference
   useEffect(() => {
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
       setDarkMode(true);
     }
 
@@ -32,7 +35,7 @@ export default function Home() {
   async function sendMessage() {
     if (!input.trim()) return;
     const userMsg: { from: "user"; text: string } = { from: "user", text: input };
-setMessages((m) => [...m, userMsg]);
+    setMessages((m) => [...m, userMsg]);
     setInput("");
 
     try {
@@ -42,8 +45,11 @@ setMessages((m) => [...m, userMsg]);
         body: JSON.stringify({ question: input }),
       });
       const data = await res.json();
-      const botMsg: { from: "bot"; text: string } = { from: "bot", text: data.answer || "I couldn't understand that." };
-setMessages((m) => [...m, botMsg]);
+      const botMsg: { from: "bot"; text: string } = {
+        from: "bot",
+        text: data.answer || "I couldn't understand that.",
+      };
+      setMessages((m) => [...m, botMsg]);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setMessages((m) => [
@@ -69,17 +75,23 @@ setMessages((m) => [...m, botMsg]);
         }`}
       >
         {/* Header */}
-       <header
-  className={`flex items-center gap-3 px-5 py-4 bg-opacity-70 border-b transition-colors duration-300 backdrop-blur-sm ${
-    darkMode ? "bg-gray-900/50 border-gray-700" : "bg-blue-50/70 border-gray-200"
-  }`}
->
+        <header
+          className={`flex items-center gap-3 px-5 py-4 bg-opacity-70 border-b transition-colors duration-300 backdrop-blur-sm ${
+            darkMode
+              ? "bg-gray-900/50 border-gray-700"
+              : "bg-blue-50/70 border-gray-200"
+          }`}
+        >
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
             🤖
           </div>
           <div>
             <h1 className="font-semibold text-sm md:text-base">AI Assistant</h1>
-            <p className={`text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+            <p
+              className={`text-xs ${
+                darkMode ? "text-gray-400" : "text-gray-500"
+              }`}
+            >
               Always here to help
             </p>
           </div>
@@ -164,8 +176,11 @@ setMessages((m) => [...m, botMsg]);
         </div>
       </div>
 
-      {/* Optional: Add subtle watermark or branding */}
-      <p className={`text-xs mt-4 opacity-60 ${darkMode ? "text-gray-500" : "text-gray-600"}`}>
+      <p
+        className={`text-xs mt-4 opacity-60 ${
+          darkMode ? "text-gray-500" : "text-gray-600"
+        }`}
+      >
         Powered by AI • Fast • Secure
       </p>
     </div>
